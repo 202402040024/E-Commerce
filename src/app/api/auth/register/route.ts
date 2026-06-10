@@ -4,8 +4,8 @@ import User from '@/models/User';
 import { z } from 'zod';
 
 const registerSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters'),
-  email: z.string().email('Invalid email address'),
+  name: z.string().min(2, 'Name must be at least 2 characters').max(50),
+  email: z.string().email('Please enter a valid email address'),
   password: z.string().min(8, 'Password must be at least 8 characters'),
   confirmPassword: z.string(),
 }).refine((data) => data.password === data.confirmPassword, {
@@ -27,22 +27,36 @@ export async function POST(req: NextRequest) {
 
     const { name, email, password } = validation.data;
 
-    await connectDB();
+    try {
+      await connectDB();
+    } catch (dbError: any) {
+      console.error('DB connection error during register:', dbError.message);
+      return NextResponse.json(
+        { success: false, error: 'Database connection failed. Please try again.' },
+        { status: 503 }
+      );
+    }
 
-    const existingUser = await User.findOne({ email });
+    const existingUser = await User.findOne({ email: email.toLowerCase() });
     if (existingUser) {
       return NextResponse.json(
-        { success: false, error: 'Email already registered' },
+        { success: false, error: 'This email is already registered. Please login instead.' },
         { status: 409 }
       );
     }
 
-    const user = await User.create({ name, email, password });
+    const user = await User.create({
+      name: name.trim(),
+      email: email.toLowerCase().trim(),
+      password,
+      role: 'user',
+      isBlocked: false,
+    });
 
     return NextResponse.json(
       {
         success: true,
-        message: 'Registration successful',
+        message: 'Account created successfully!',
         data: {
           id: user._id.toString(),
           name: user.name,
@@ -54,6 +68,12 @@ export async function POST(req: NextRequest) {
     );
   } catch (error: any) {
     console.error('Register error:', error);
+    if (error.code === 11000) {
+      return NextResponse.json(
+        { success: false, error: 'This email is already registered.' },
+        { status: 409 }
+      );
+    }
     return NextResponse.json(
       { success: false, error: 'Registration failed. Please try again.' },
       { status: 500 }

@@ -14,15 +14,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
-          throw new Error('Invalid credentials');
+          throw new Error('Please enter your email and password');
         }
 
-        await connectDB();
+        try {
+          await connectDB();
+        } catch (dbError: any) {
+          console.error('DB connection error during auth:', dbError.message);
+          throw new Error('Database connection failed. Please check your MongoDB Atlas network access settings and whitelist your IP address.');
+        }
 
         const user = await User.findOne({ email: credentials.email }).select('+password');
 
         if (!user) {
-          throw new Error('No user found with this email');
+          throw new Error('No account found with this email. Please register first.');
         }
 
         if (user.isBlocked) {
@@ -35,7 +40,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         );
 
         if (!isPasswordValid) {
-          throw new Error('Invalid password');
+          throw new Error('Incorrect password. Please try again.');
         }
 
         return {
@@ -69,7 +74,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   },
   session: {
     strategy: 'jwt',
-    maxAge: 30 * 24 * 60 * 60, // 30 days
+    maxAge: 30 * 24 * 60 * 60,
   },
   secret: process.env.NEXTAUTH_SECRET,
 });

@@ -7,7 +7,7 @@ export async function GET(req: NextRequest) {
   try {
     await connectDB();
     await seedAdmin();
-    await seedProducts();
+    await seedProducts(false);
 
     const { searchParams } = new URL(req.url);
     const category = searchParams.get('category');

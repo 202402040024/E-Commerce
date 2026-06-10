@@ -1,28 +1,32 @@
-import { auth } from '@/lib/auth';
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
+import { getToken } from 'next-auth/jwt';
 
-export default auth((req) => {
-  const { nextUrl, auth: session } = req;
-  const isLoggedIn = !!session;
-  const isAdmin = (session?.user as any)?.role === 'admin';
+export async function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl;
+
+  const token = await getToken({
+    req,
+    secret: process.env.NEXTAUTH_SECRET,
+  });
+
+  const isLoggedIn = !!token;
+  const isAdmin = token?.role === 'admin';
 
   // Admin routes protection
-  if (nextUrl.pathname.startsWith('/admin')) {
-    // Admin login page is accessible to everyone
-    if (nextUrl.pathname === '/admin/login') {
+  if (pathname.startsWith('/admin')) {
+    if (pathname === '/admin/login') {
       if (isLoggedIn && isAdmin) {
-        return NextResponse.redirect(new URL('/admin/dashboard', nextUrl));
+        return NextResponse.redirect(new URL('/admin/dashboard', req.url));
       }
       return NextResponse.next();
     }
 
-    // All other admin routes require admin role
     if (!isLoggedIn) {
-      return NextResponse.redirect(new URL('/admin/login', nextUrl));
+      return NextResponse.redirect(new URL('/admin/login', req.url));
     }
 
     if (!isAdmin) {
-      return NextResponse.redirect(new URL('/', nextUrl));
+      return NextResponse.redirect(new URL('/', req.url));
     }
 
     return NextResponse.next();
@@ -30,19 +34,19 @@ export default auth((req) => {
 
   // Protected user routes
   const protectedRoutes = ['/cart', '/profile', '/orders', '/checkout', '/wishlist'];
-  if (protectedRoutes.some((route) => nextUrl.pathname.startsWith(route))) {
+  if (protectedRoutes.some((route) => pathname.startsWith(route))) {
     if (!isLoggedIn) {
-      return NextResponse.redirect(new URL(`/login?callbackUrl=${nextUrl.pathname}`, nextUrl));
+      return NextResponse.redirect(new URL(`/login?callbackUrl=${pathname}`, req.url));
     }
   }
 
   // Redirect logged in users from auth pages
-  if ((nextUrl.pathname === '/login' || nextUrl.pathname === '/register') && isLoggedIn) {
-    return NextResponse.redirect(new URL('/', nextUrl));
+  if ((pathname === '/login' || pathname === '/register') && isLoggedIn) {
+    return NextResponse.redirect(new URL('/', req.url));
   }
 
   return NextResponse.next();
-});
+}
 
 export const config = {
   matcher: ['/((?!api|_next/static|_next/image|favicon.ico|images).*)'],
