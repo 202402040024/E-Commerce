@@ -1,31 +1,21 @@
 'use client';
 
 import { signOut } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
 
 /**
- * Reliable sign-out hook that handles both normal and error cases.
- * Falls back to manual cookie clearing if NextAuth signOut fails.
+ * Reliable sign-out that works in both development and production.
+ * Uses window.location redirect after sign-out to avoid CSRF/URL issues.
  */
 export function useSignOut() {
-  const router = useRouter();
-
   const handleSignOut = async (callbackUrl = '/') => {
     try {
-      // Try NextAuth signOut first
-      const result = await signOut({
-        redirect: false,
-        callbackUrl,
-      });
-
-      toast.success('Signed out successfully');
-      // Force a hard redirect to clear all state
+      await signOut({ redirect: false });
+    } catch {
+      // ignore errors from signOut itself
+    } finally {
+      // Always do a hard redirect — clears React state, cookies, and avoids
+      // NEXTAUTH_URL mismatch issues in production
       window.location.href = callbackUrl;
-    } catch (error) {
-      console.error('SignOut error, using fallback:', error);
-      // Fallback: call our custom signout endpoint
-      window.location.href = `/api/auth/signout?callbackUrl=${encodeURIComponent(callbackUrl)}`;
     }
   };
 

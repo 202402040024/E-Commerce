@@ -7,7 +7,7 @@ import { ShoppingCart, Search, User, Menu, X, Heart, Sun, Moon, ChevronDown, Lay
 import { useTheme } from 'next-themes';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useRouter, usePathname } from 'next/navigation';
-import { useCartStore } from '@/hooks/useCart';
+import { useCartStore, useHydratedCart } from '@/hooks/useCart';
 
 export default function Navbar() {
   const { data: session } = useSession();
@@ -19,7 +19,7 @@ export default function Navbar() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
-  const { itemCount } = useCartStore();
+  const { itemCount } = useHydratedCart();
   const isAdmin = (session?.user as any)?.role === 'admin';
 
   // Prevent hydration mismatch for theme

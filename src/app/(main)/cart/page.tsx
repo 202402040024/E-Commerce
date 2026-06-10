@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -8,10 +9,16 @@ import { Minus, Plus, Trash2, ShoppingBag, ArrowRight, Tag } from 'lucide-react'
 import { useCartStore } from '@/hooks/useCart';
 import { formatPrice } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function CartPage() {
-  const { items, removeItem, updateQuantity, getTotal, clearCart } = useCartStore();
+  const { items, removeItem, updateQuantity, getTotal, clearCart, _hasHydrated } =
+    useCartStore();
   const router = useRouter();
+
+  // Prevent hydration mismatch — show skeleton until localStorage is loaded
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => { setMounted(true); }, []);
 
   const subtotal = getTotal();
   const deliveryCharge = subtotal >= 999 ? 0 : 99;
@@ -22,6 +29,25 @@ export default function CartPage() {
     }
     return sum;
   }, 0);
+
+  // Show skeleton while hydrating from localStorage
+  if (!mounted || !_hasHydrated) {
+    return (
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-950 pb-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          <Skeleton className="h-10 w-64 mb-8" />
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2 space-y-4">
+              {[...Array(3)].map((_, i) => (
+                <Skeleton key={i} className="h-32 w-full rounded-2xl" />
+              ))}
+            </div>
+            <Skeleton className="h-64 w-full rounded-2xl" />
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   if (items.length === 0) {
     return (
@@ -34,7 +60,9 @@ export default function CartPage() {
           <div className="w-28 h-28 bg-orange-100 dark:bg-orange-900/20 rounded-full flex items-center justify-center mx-auto mb-6">
             <ShoppingBag className="h-14 w-14 text-orange-400" />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">Your cart is empty</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
+            Your cart is empty
+          </h2>
           <p className="text-gray-500 dark:text-gray-400 mb-8 max-w-sm mx-auto">
             Looks like you haven't added anything to your cart yet. Start shopping to fill it up!
           </p>
@@ -55,7 +83,9 @@ export default function CartPage() {
         <div className="flex items-center justify-between mb-8">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Shopping Cart</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">{items.length} items in your cart</p>
+            <p className="text-gray-500 dark:text-gray-400 mt-1">
+              {items.length} item{items.length !== 1 ? 's' : ''} in your cart
+            </p>
           </div>
           <button
             onClick={clearCart}
@@ -70,8 +100,12 @@ export default function CartPage() {
           <div className="lg:col-span-2 space-y-4">
             <AnimatePresence>
               {items.map((item) => {
-                const itemPrice = item.product.discountPrice || item.product.price;
-                const imageUrl = item.product.images?.[0] || `https://placehold.co/200x200/f97316/white?text=${item.product.name.slice(0, 2)}`;
+                const itemPrice = item.product.discountPrice ?? item.product.price;
+                const imageUrl =
+                  item.product.images?.[0] ||
+                  `https://placehold.co/200x200/f97316/white?text=${encodeURIComponent(
+                    item.product.name.slice(0, 2).toUpperCase()
+                  )}`;
 
                 return (
                   <motion.div
@@ -86,12 +120,17 @@ export default function CartPage() {
                       {/* Image */}
                       <Link href={`/products/${item.product._id}`} className="flex-shrink-0">
                         <div className="relative w-24 h-24 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800">
-                          <Image
+                          {/* eslint-disable-next-line @next/next/no-img-element */}
+                          <img
                             src={imageUrl}
                             alt={item.product.name}
-                            fill
-                            className="object-cover"
-                            sizes="96px"
+                            className="w-full h-full object-cover"
+                            onError={(e) => {
+                              (e.target as HTMLImageElement).src =
+                                `https://placehold.co/200x200/f97316/white?text=${encodeURIComponent(
+                                  item.product.name.slice(0, 2).toUpperCase()
+                                )}`;
+                            }}
                           />
                         </div>
                       </Link>
@@ -106,7 +145,7 @@ export default function CartPage() {
                               </h3>
                             </Link>
                             <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 capitalize">
-                              {item.product.brand} • {item.product.category}
+                              {item.product.brand} · {item.product.category}
                             </p>
                           </div>
                           <button
@@ -118,19 +157,23 @@ export default function CartPage() {
                         </div>
 
                         <div className="flex items-center justify-between mt-3">
-                          {/* Quantity Controls */}
+                          {/* Quantity */}
                           <div className="flex items-center border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden">
                             <button
-                              onClick={() => updateQuantity(item.product._id, item.quantity - 1)}
+                              onClick={() =>
+                                updateQuantity(item.product._id, item.quantity - 1)
+                              }
                               className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                             >
                               <Minus className="h-3 w-3 text-gray-600 dark:text-gray-400" />
                             </button>
-                            <span className="w-8 text-center text-sm font-semibold text-gray-900 dark:text-white">
+                            <span className="w-10 text-center text-sm font-semibold text-gray-900 dark:text-white">
                               {item.quantity}
                             </span>
                             <button
-                              onClick={() => updateQuantity(item.product._id, item.quantity + 1)}
+                              onClick={() =>
+                                updateQuantity(item.product._id, item.quantity + 1)
+                              }
                               disabled={item.quantity >= item.product.stock}
                               className="w-8 h-8 flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors disabled:opacity-40"
                             >
@@ -171,7 +214,9 @@ export default function CartPage() {
               animate={{ opacity: 1, y: 0 }}
               className="bg-white dark:bg-gray-900 rounded-2xl p-6 border border-gray-100 dark:border-gray-800 shadow-sm sticky top-24"
             >
-              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Order Summary</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">
+                Order Summary
+              </h2>
 
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between text-gray-600 dark:text-gray-400">
@@ -186,12 +231,18 @@ export default function CartPage() {
                 )}
                 <div className="flex justify-between text-gray-600 dark:text-gray-400">
                   <span>Delivery</span>
-                  <span className={deliveryCharge === 0 ? 'text-green-600 dark:text-green-400' : ''}>
+                  <span
+                    className={
+                      deliveryCharge === 0
+                        ? 'text-green-600 dark:text-green-400 font-medium'
+                        : ''
+                    }
+                  >
                     {deliveryCharge === 0 ? 'FREE' : formatPrice(deliveryCharge)}
                   </span>
                 </div>
                 {deliveryCharge > 0 && (
-                  <div className="text-xs text-orange-500 bg-orange-50 dark:bg-orange-900/20 px-3 py-2 rounded-lg">
+                  <div className="text-xs text-orange-600 dark:text-orange-400 bg-orange-50 dark:bg-orange-900/20 px-3 py-2 rounded-lg">
                     Add {formatPrice(999 - subtotal)} more for free delivery!
                   </div>
                 )}
