@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, useCallback } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   Upload, FileSpreadsheet, FileJson, FileText, X, CheckCircle,
@@ -35,7 +35,7 @@ interface BulkImportProps {
 }
 
 // File type icons
-const fileIcons: Record<string, JSX.Element> = {
+const fileIcons: Record<string, React.ReactElement> = {
   csv: <FileText className="h-6 w-6 text-green-400" />,
   xlsx: <FileSpreadsheet className="h-6 w-6 text-blue-400" />,
   xls: <FileSpreadsheet className="h-6 w-6 text-blue-400" />,
