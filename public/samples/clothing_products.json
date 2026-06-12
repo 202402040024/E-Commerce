@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Premium Polo T-Shirt",
+    "description": "High-quality polo t-shirt made from breathable cotton pique fabric. Perfect for casual and semi-formal occasions.",
+    "price": 1799,
+    "discountPrice": 1199,
+    "category": "mens",
+    "subcategory": "T-Shirts",
+    "brand": "PoloClub",
+    "stock": 120,
+    "images": "https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600",
+    "featured": true
+  },
+  {
+    "name": "Slim Fit Chino Pants",
+    "description": "Modern slim fit chinos in stretch cotton. Versatile enough for office or casual wear.",
+    "price": 2999,
+    "discountPrice": 1999,
+    "category": "mens",
+    "subcategory": "Jeans",
+    "brand": "TrendWear",
+    "stock": 80,
+    "images": "https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600",
+    "featured": false
+  },
+  {
+    "name": "Flowy Boho Maxi Dress",
+    "description": "Beautiful boho-inspired maxi dress with floral embroidery. Light and airy fabric perfect for summer days.",
+    "price": 3499,
+    "discountPrice": 2299,
+    "category": "womens",
+    "subcategory": "Dresses",
+    "brand": "BohoChic",
+    "stock": 60,
+    "images": "https://images.unsplash.com/photo-1496217590455-aa63a8550edc?w=600",
+    "featured": true
+  },
+  {
+    "name": "Velvet Clutch Purse",
+    "description": "Elegant velvet clutch purse with gold chain strap. Perfect for evening events and parties.",
+    "price": 2199,
+    "discountPrice": 1499,
+    "category": "womens",
+    "subcategory": "Handbags",
+    "brand": "GlamBag",
+    "stock": 45,
+    "images": "https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600",
+    "featured": false
+  },
+  {
+    "name": "Kids Denim Dungaree",
+    "description": "Adorable denim dungaree for kids with adjustable straps and multiple pockets. Durable and easy to wash.",
+    "price": 1299,
+    "discountPrice": 899,
+    "category": "kids",
+    "subcategory": "T-Shirts",
+    "brand": "KidsDenim",
+    "stock": 90,
+    "images": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600",
+    "featured": true
+  },
+  {
+    "name": "Casual Linen Blazer",
+    "description": "Smart casual linen blazer, perfect for summer occasions. Relaxed fit with a modern cut.",
+    "price": 4999,
+    "discountPrice": 3499,
+    "category": "mens",
+    "subcategory": "Jackets",
+    "brand": "LinenCraft",
+    "stock": 35,
+    "images": "https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600",
+    "featured": false
+  },
+  {
+    "name": "Silk Wrap Midi Skirt",
+    "description": "Luxurious silk wrap skirt with a flattering A-line silhouette. Pair with a blouse for an elegant look.",
+    "price": 2799,
+    "discountPrice": 1999,
+    "category": "womens",
+    "subcategory": "Dresses",
+    "brand": "SilkLux",
+    "stock": 55,
+    "images": "https://images.unsplash.com/photo-1594938298603-c8148c4b1c2a?w=600",
+    "featured": true
+  },
+  {
+    "name": "Boys Cargo Shorts",
+    "description": "Comfortable cargo shorts for boys with multiple pockets. Perfect for outdoor activities and playtime.",
+    "price": 799,
+    "discountPrice": 549,
+    "category": "kids",
+    "subcategory": "T-Shirts",
+    "brand": "KidStyle",
+    "stock": 130,
+    "images": "https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600",
+    "featured": false
+  }
+]

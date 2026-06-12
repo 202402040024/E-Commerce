@@ -1,23 +1,10 @@
 'use client';
 
-import { signOut } from 'next-auth/react';
-
 /**
- * Reliable sign-out that works in both development and production.
- * Uses window.location redirect after sign-out to avoid CSRF/URL issues.
+ * Fast server-side sign-out.
+ * Redirects to /api/auth/logout which deletes HttpOnly cookies server-side,
+ * then redirects to callbackUrl. Single navigation = instant logout.
  */
-export function useSignOut() {
-  const handleSignOut = async (callbackUrl = '/') => {
-    try {
-      await signOut({ redirect: false });
-    } catch {
-      // ignore errors from signOut itself
-    } finally {
-      // Always do a hard redirect — clears React state, cookies, and avoids
-      // NEXTAUTH_URL mismatch issues in production
-      window.location.href = callbackUrl;
-    }
-  };
-
-  return handleSignOut;
+export function instantSignOut(callbackUrl = '/') {
+  window.location.href = `/api/auth/logout?callbackUrl=${encodeURIComponent(callbackUrl)}`;
 }

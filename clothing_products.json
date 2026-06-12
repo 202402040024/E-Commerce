@@ -1,0 +1,108 @@
+[
+  {
+    "name": "Floral Dress",
+    "description": "Floral Dress clothing product",
+    "brand": "H&M",
+    "stock": 50,
+    "price": 1099,
+    "discountPrice": 999,
+    "category": "Women",
+    "featured": false,
+    "productUrl": "data:image/webp;base64,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"
+  },
+  {
+    "name": "Denim Jacket",
+    "description": "Denim Jacket clothing product",
+    "brand": "Levi's",
+    "stock": 50,
+    "price": 1199,
+    "discountPrice": 1099,
+    "category": "Women",
+    "featured": false,
+    "productUrl": "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcT7SlqJLEjlUH48pe_3Hl9l-KQKPdgGwpda84tUHP2QvNkumHwGzfNOiDizBI_M-7rY9kaCi__avQPwQ7IR3YGM_iQmrHE5M83Xy2yCcTANEWf1vbuRbTvT"
+  },
+ 
+  {
+    "name": "Hoodie",
+    "description": "Hoodie clothing product",
+    "brand": "H&M",
+    "stock": 50,
+    "price": 1699,
+    "discountPrice": 1599,
+    "category": "Women",
+    "featured": false,
+    "productUrl": "https://thf.bing.com/th/id/OPAC.I2Cz07LyD52u4A474C474?w=200&h=220&c=17&dpr=1.5&pid=21.1"
+  },
+  {
+    "name": "Formal Shirt",
+    "description": "Formal Shirt clothing product",
+    "brand": "Arrow",
+    "stock": 50,
+    "price": 1799,
+    "discountPrice": 1699,
+    "category": "Men",
+    "featured": true,
+    "productUrl": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcR23DCXji6ZyNmuq_sGFV2xzhglG6L8LFtcQBIHD5MDP49yZb54taZCv4bMxjx_APAAEMmCh2TTmoBQtnz9Kbd3bwBpXoXHl9uyvDltSgw"
+  },
+  {
+    "name": "Casual T-Shirt",
+    "description": "Casual T-Shirt clothing product",
+    "brand": "Nike",
+    "stock": 50,
+    "price": 1899,
+    "discountPrice": 1799,
+    "category": "Men",
+    "featured": false,
+    "productUrl": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcSFCO7nTFEDAxsK_kKbKZtyvlx9lcNnKIwoet13V-bGIQ9xK9Q6dVl-cjp8hD9rlbJT8DSQLsEvXrjQNayTJZRrk8nNbvBybw"
+  },
+ 
+    
+  
+    
+ 
+  
+  {
+    "name": "Watch",
+    "description": "Watch",
+    "brand": "Amazon",
+    "stock": 50,
+    "price": 2299,
+    "discountPrice": 2199,
+    "category": "Men",
+    "featured": true,
+    "productUrl": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcRDgAxwNeI6jJbEZiE34pD28vfmulBRV27gOl77aHLeyZoPoXYY_umHcHqjrRLrr7LORmWmDTtrjUKGycINs2zwF1Db9UlK92zWv1QhDwUAaBI8U-gjpBuyWA"
+  },
+  {
+    "name": "Shoes",
+    "description": "Shoes",
+    "brand": "Puma",
+    "stock": 50,
+    "price": 2399,
+    "discountPrice": 2299,
+    "category": "Men",
+    "featured": false,
+    "productUrl": "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcTgLu2TbTPwSE6sBY_bz522AdgPEOU7tfGNd3gYP44dKJ0n6HalUBvDYskBcHMAwvxvVyV16GDHMG6Gd2gAkT65n_Z1kGKgaSKzBGGi2tSr_J9oqz0mws679eM"
+  },
+  {
+    "name": "Cartoon T-Shirt",
+    "description": "Cartoon T-Shirt clothing product",
+    "brand": "Max",
+    "stock": 50,
+    "price": 2499,
+    "discountPrice": 2399,
+    "category": "Kids",
+    "featured": false,
+    "productUrl": "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQMRLtnzaeeQZbnCJCjcCWtdO-h5Fl61ikfLK70n6nH1v1_u-M0n-bYBR1V9gYBBmX-Ter5Fei1wZTo9i3k7ViqZrWeeovSO6UHN44LC0gIjtZ_lx76DEc9kHdg"
+  },
+  {
+    "name": "Denim Shorts",
+    "description": "Denim Shorts clothing product",
+    "brand": "Max",
+    "stock": 50,
+    "price": 2599,
+    "discountPrice": 2499,
+    "category": "Kids",
+    "featured": false,
+    "productUrl": "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcTFBaWWOY25-69OrT_H-CABD9P5lVfVwM_yPP_dAkjm6dtTUT98037SxF8egtuBoihNzLBP3VjLCeyTwHpqU-VqPlusSOeh6F86-Mmfh2z1W20ELonKlzkh"
+  }
+]

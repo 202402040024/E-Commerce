@@ -3,7 +3,8 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useSession, signOut } from 'next-auth/react';
+import { useSession } from 'next-auth/react';
+import { instantSignOut } from '@/hooks/useSignOut';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   LayoutDashboard, Package, Plus, Users, ShoppingCart,
@@ -160,7 +161,7 @@ function SidebarContent({ onClose }: { onClose?: () => void }) {
 
         {/* Logout */}
         <button
-          onClick={() => signOut({ callbackUrl: '/admin/login' })}
+          onClick={() => instantSignOut('/admin/login')}
           className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium text-red-400 hover:bg-red-500/10 hover:text-red-300 transition-colors"
         >
           <LogOut className="h-4 w-4 flex-shrink-0" />

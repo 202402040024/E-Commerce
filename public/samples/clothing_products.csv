@@ -1,0 +1,13 @@
+name,description,price,discountPrice,category,subcategory,brand,stock,images,featured
+"Premium Polo T-Shirt","High-quality polo t-shirt made from breathable cotton pique fabric",1799,1199,mens,T-Shirts,PoloClub,120,"https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=600",true
+"Slim Fit Chino Pants","Modern slim fit chinos in stretch cotton. Versatile for office or casual wear",2999,1999,mens,Jeans,TrendWear,80,"https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600",false
+"Flowy Boho Maxi Dress","Beautiful boho-inspired maxi dress with floral embroidery. Light and airy",3499,2299,womens,Dresses,BohoChic,60,"https://images.unsplash.com/photo-1496217590455-aa63a8550edc?w=600",true
+"Velvet Clutch Purse","Elegant velvet clutch purse with gold chain strap for evening events",2199,1499,womens,Handbags,GlamBag,45,"https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?w=600",false
+"Kids Denim Dungaree","Adorable denim dungaree for kids with adjustable straps and multiple pockets",1299,899,kids,T-Shirts,KidsDenim,90,"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600",true
+"Casual Linen Blazer","Smart casual linen blazer perfect for summer occasions. Relaxed fit",4999,3499,mens,Jackets,LinenCraft,35,"https://images.unsplash.com/photo-1507679799987-c73779587ccf?w=600",false
+"Silk Wrap Midi Skirt","Luxurious silk wrap skirt with a flattering A-line silhouette",2799,1999,womens,Dresses,SilkLux,55,"https://images.unsplash.com/photo-1594938298603-c8148c4b1c2a?w=600",true
+"Boys Cargo Shorts","Comfortable cargo shorts for boys with multiple pockets for outdoor activities",799,549,kids,T-Shirts,KidStyle,130,"https://images.unsplash.com/photo-1519238263530-99bdd11df2ea?w=600",false
+"Embroidered Kurta","Traditional embroidered kurta in soft cotton. Perfect for festive occasions",1999,1399,mens,Shirts,EthnicWear,70,"https://images.unsplash.com/photo-1571945153237-4929e783af4a?w=600",true
+"Designer Lehenga","Stunning designer lehenga with intricate embroidery work. For weddings and parties",12999,9999,womens,Dresses,WeddingGlam,15,"https://images.unsplash.com/photo-1610030169161-6d89cbed0ef2?w=600",true
+"Girls Party Frock","Beautiful party frock for girls with lace detailing and bow",1499,999,kids,T-Shirts,GirlsGlow,85,"https://images.unsplash.com/photo-1503944583220-79d8926ad5e2?w=600",false
+"Denim Jacket","Classic denim jacket with button closure. A wardrobe staple for all seasons",3999,2799,mens,Jackets,DenimKing,50,"https://images.unsplash.com/photo-1551028719-00167b16eac5?w=600",false
